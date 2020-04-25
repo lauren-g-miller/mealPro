@@ -9,8 +9,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        return dateFormatter
+    }
+    
+    var plans = Plan.testPlans
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            List (plans) { plan in
+                NavigationLink(destination: Text("\(self.dateFormatter.string(from: plan.startDate))")) {
+                    HStack {
+                        Text("\(self.dateFormatter.string(from: plan.startDate))")
+                        Spacer()
+                        Text("\(plan.lengthInDays) days")
+                    }
+                }
+            }
+            .navigationBarTitle("Meal Plan History")
+        }
     }
 }
 
